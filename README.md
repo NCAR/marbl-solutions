@@ -1,3 +1,3 @@
-# Earth System Model (ESM) Solutions
+# MARBL Solutions
 
-Repository to host deployment of Earth System Model diagnostics.
+Repository to host deployment of Earth System Model diagnostics related to MARBL.
