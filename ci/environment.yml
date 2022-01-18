@@ -10,5 +10,6 @@ dependencies:
   - pytest-cov
   - pip
   - pip:
-    - xcollection
-    - git+https://github.com/NCAR/esm-collections
+      - pre-commit
+      - xcollection
+      - git+https://github.com/NCAR/esm-collections
