@@ -1,0 +1,14 @@
+name: marbl-solutions-dev
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - jupyterlab
+  - xarray
+  - intake-esm
+  - pytest
+  - pytest-cov
+  - pip
+  - pip:
+    - xcollection
+    - git+https://github.com/NCAR/esm-collections
