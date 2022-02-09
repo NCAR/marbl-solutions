@@ -2,12 +2,19 @@ name: marbl-solutions-dev
 channels:
   - conda-forge
   - nodefaults
+  - ncar
 dependencies:
   - jupyterlab
   - xarray
   - intake-esm
   - pytest
   - pytest-cov
+  - holoviews
+  - hvplot
+  - pop-tools
+  - xhistogram
+  - geocat-comp
+  - panel
   - pip
   - pip:
       - pre-commit
