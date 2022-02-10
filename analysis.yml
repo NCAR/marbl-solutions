@@ -1,0 +1,17 @@
+epoch_mean:
+    data_frequency: month_1
+    average_frequency: yearly
+    component:
+        ocn:
+            TEMP:
+                units_in: null
+                units_out: degC
+                v_min: 0
+                v_max: 35
+            PO4:
+                units_in: null
+                units_out: null
+                v_min: 1.0e-2
+                v_max: 300.
+                
+            
