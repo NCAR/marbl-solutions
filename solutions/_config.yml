@@ -5,4 +5,6 @@ execute:
   execute_notebooks: "off"
 repository:
   url: https://github.com/NCAR/marbl-solutions
+launch_buttons:
+  jupyterhub_url: "https://jupyterhub.hpc.ucar.edu/dev"
 
