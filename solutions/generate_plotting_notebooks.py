@@ -15,6 +15,11 @@ def modify_markdown_header(notebook_name, variable):
     nbf.write(new_notebook, notebook_name, version=nbf.NO_CONVERT)
     return print(f'Modified {notebook_name} with {variable} header')
 
+def nb_get_kernelname(file_in):
+    """get the kernel name of a notebook"""
+    data = nbf.read(file_in, as_version=nbf.NO_CONVERT)
+    return data["metadata"]["kernelspec"]["name"]
+
 for collection_type in analysis_config.keys():
     for variable in analysis_config[collection_type]['variables']:
         out_notebook_name = f"{collection_type}_{variable}.ipynb"
@@ -22,6 +27,6 @@ for collection_type in analysis_config.keys():
             analysis_config[collection_type]['template_notebook'],
             out_notebook_name,
             parameters=dict(variable=variable),
-            kernel_name='python3'
+            kernel_name=nb_get_kernelname(analysis_config[collection_type]['template_notebook'])
         )
         modify_markdown_header(out_notebook_name, variable)
