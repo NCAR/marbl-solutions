@@ -1,0 +1,19 @@
+reference_case: pop_control
+
+reference_case_path: /glade/campaign/cesm/development/omwg/projects/MOMMARBL_vs_POPECO/pop_runs
+
+reference_case_file_format: timeseries
+
+reference_case_catalog_json: /glade/campaign/cesm/development/omwg/projects/MOMMARBL_vs_POPECO/catalog/MOMvsPOP.json
+
+case_to_compare:
+  - pop_no_mcog
+
+case_to_compare_paths:
+  - /glade/campaign/cesm/development/omwg/projects/MOMMARBL_vs_POPECO/pop_runs
+
+case_to_compare_file_format: timeseries
+
+case_to_compare_catalog_json: /glade/campaign/cesm/development/omwg/projects/MOMMARBL_vs_POPECO/catalog/MOMvsPOP.json
+
+cache_dir: /glade/scratch/mgrover/funnel_test/cache
