@@ -6,10 +6,11 @@ import intake
 import xcollection as xc
 from prefect import Flow, Parameter, task
 from xpersist import CacheStore, XpersistResult
+from config import deploy_config
 
 os.environ['PREFECT__FLOWS__CHECKPOINTING'] = 'True'
 
-store = CacheStore(f'{tempfile.gettempdir()}/marbl-example-cache')
+store = CacheStore(deploy_config['cache_dir'] + '/epoch_mean_collection')
 
 
 def epoch_mean(ds):
@@ -23,7 +24,7 @@ def convert_to_collection(keys, dsets):
 
 
 @task
-def read_catalog(path, multivar_row=False):
+def read_catalog(path, file_format='timeseries'):
     """
     Reads in an intake-esm catalog from a given path
 
@@ -31,16 +32,18 @@ def read_catalog(path, multivar_row=False):
     ----------
     path: str, path to the associated intake-esm catalog json
 
-    multivar_row: boolean, default=False, whether multiple variables are in each row
+    file_format
 
     Returns
     -------
     intake_esm.Catalog
     """
-    if multivar_row:
+    if file_format == 'history':
         read_csv_kwargs = {'converters': {'variables': ast.literal_eval}}
-    else:
+    elif file_format == 'timeseries':
         read_csv_kwargs = None
+    else:
+        raise AttributeError('File format needs to be either history or timeseries')
 
     return intake.open_esm_datastore(path, read_csv_kwargs=read_csv_kwargs)
 
@@ -112,12 +115,12 @@ with Flow('epoch_mean') as epoch_mean_flow:
         'catalog_path',
         default='/glade/work/mgrover/cesm2_le_test_data/catalogs/cesm2-le-subset.json',
     )
-    multivar_row = Parameter('multi_var_row', default=False)
+    file_format = Parameter('file_format', default='timeseries')
     search_dict = Parameter('search_dict', default={})
     cdf_kwargs = Parameter('cdf_kwargs', default=None)
 
     # Load the intake-esm catalog into memory
-    data_catalog = read_catalog(catalog_path, multivar_row)
+    data_catalog = read_catalog(catalog_path, file_format)
 
     # Subset the catalog
     data_catalog_subset = subset_catalog(data_catalog, search_dict)
@@ -133,18 +136,18 @@ with Flow('epoch_mean') as epoch_mean_flow:
     epoch_average_collection = epoch_average.map(values, keys)
 
 
-def epoch_mean_flow_collection(catalog_path, multi_var_row=False, search_dict={}, cdf_kwargs=None):
+def epoch_mean_flow_collection(catalog_path, file_format='timeseries', search_dict={}, cdf_kwargs=None):
     """
     Parameters
     ----------
     collection_path = str, path to intake-esm json
-    multi_var_row = bool, True for history files, False for timeseries files
+    history_format = bool, True for history files, False for timeseries files
     search_dict = dict, search dictionary
     cdf_kwargs = dict, open dataset arguments
     """
     run_flow = epoch_mean_flow.run(
         catalog_path=catalog_path,
-        multi_var_row=multi_var_row,
+        file_format=file_format,
         search_dict=search_dict,
         cdf_kwargs=cdf_kwargs,
     )

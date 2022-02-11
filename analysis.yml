@@ -1,6 +1,7 @@
 epoch_mean:
     data_frequency: month_1
     average_frequency: yearly
+    template_notebook: epoch_mean_template.ipynb
     component:
         ocn:
             TEMP:
