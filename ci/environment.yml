@@ -15,6 +15,8 @@ dependencies:
   - xhistogram
   - geocat-comp
   - panel
+  - papermill
+  - nbformat
   - pip
   - pip:
       - pre-commit
