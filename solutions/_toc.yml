@@ -1,0 +1,7 @@
+format: jb-book
+root: intro
+parts:
+    - caption: Epoch Mean Diagnostics
+      chapters:
+          - glob: epoch_mean_*
+  

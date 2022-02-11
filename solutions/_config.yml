@@ -1,0 +1,8 @@
+title: CESM2 MARBL Solutions
+author: MARBL Team
+logo: marbl_pic.jpeg
+execute:
+  execute_notebooks: "off"
+repository:
+  url: https://github.com/NCAR/marbl-solutions
+
